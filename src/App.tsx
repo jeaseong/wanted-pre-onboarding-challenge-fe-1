@@ -1,10 +1,11 @@
-import React from "react";
-import Login from "components/modules/login/Login";
+import React, { useEffect } from "react";
+import RoutesPage from "routes/RoutesPages";
 
 function App() {
+  useEffect(() => {}, []);
   return (
     <div className="App">
-      <Login />
+      <RoutesPage />
     </div>
   );
 }

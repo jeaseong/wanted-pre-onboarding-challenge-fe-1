@@ -9,6 +9,5 @@ export const logIn = async (authInfo: authTypes) => {
 
 export const signUp = async (authInfo: authTypes) => {
   const apiURL = "users/create";
-  const data = await Axios.post(apiURL, authInfo);
-  return data;
+  await Axios.post(apiURL, authInfo);
 };
