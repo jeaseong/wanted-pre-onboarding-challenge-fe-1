@@ -8,9 +8,11 @@ const Input = ({
   onChange,
   required,
   disabled = false,
+  placeholder,
 }: InputTypes) => {
   return (
     <InputBox
+      placeholder={placeholder}
       onChange={onChange}
       required={required}
       disabled={disabled}
