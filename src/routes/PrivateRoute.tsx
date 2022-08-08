@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Login from "pages/login/Login";
 import { RouteType } from "types/type";
 
 const PrivateRoute = ({ component }: RouteType) => {
   const navigate = useNavigate();
-  const isToken = localStorage.getItem("userToken");
-  if (!isToken) {
-    navigate("/login");
-    return <></>;
-  }
+  useEffect(() => {
+    const isToken = localStorage.getItem("userToken");
+    if (!isToken) {
+      alert("토큰이 만료!");
+      navigate("/login");
+    }
+  }, []);
+
   return component;
 };
 
