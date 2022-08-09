@@ -38,6 +38,5 @@ export const updateTodo = async (id: string, todo: todoType) => {
 
 export const deleteTodo = async (id: string) => {
   const apiURL = `todos/${id}`;
-  const { data } = await Axios.delete(apiURL);
-  return data;
+  await Axios.delete(apiURL);
 };
