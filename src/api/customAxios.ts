@@ -1,4 +1,5 @@
 import axios, { AxiosInstance } from "axios";
+import { access } from "fs";
 
 const serverURL = `${process.env.REACT_APP_API_SERVER}`;
 
@@ -14,7 +15,7 @@ Axios.interceptors.request.use(async (config) => {
   const accessToken = localStorage.getItem("userToken");
   if (config && accessToken) {
     config.headers = {
-      Authorization: accessToken,
+      authorization: `${accessToken}`,
     };
   }
   return config;
