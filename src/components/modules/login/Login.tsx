@@ -29,7 +29,7 @@ const Login = () => {
       const authInfo = { email, password };
       try {
         const { message, token } = await logIn(authInfo);
-        localStorage.setItem(token, "userToken");
+        localStorage.setItem("userToken", token);
         navigate("/");
       } catch (erroe) {
         alert("로그인 실패..! 다시 시도해주세요.");
