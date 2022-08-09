@@ -9,9 +9,11 @@ const Input = ({
   required,
   disabled = false,
   placeholder,
+  value,
 }: InputTypes) => {
   return (
     <InputBox
+      value={value}
       placeholder={placeholder}
       onChange={onChange}
       required={required}
