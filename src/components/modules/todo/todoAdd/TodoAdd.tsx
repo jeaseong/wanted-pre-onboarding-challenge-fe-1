@@ -1,31 +1,28 @@
 import React, { useState } from "react";
 import Input from "components/atoms/input/Input";
 import Area from "components/atoms/textarea/TextArea";
+import useInput from "hooks/useInput";
 import { debounce } from "utils/debounce";
 import { createTodo } from "api/api";
 import { AddType } from "types/type";
 import { Container, InputBox, Title } from "./TodoAdd.style";
 
 const TodoAdd = ({ handleAddTodo }: AddType) => {
-  const [todo, setTodo] = useState("");
+  const [todo, todoInput] = useInput({
+    type: "text",
+    types: "todo",
+    placeholder: "todo",
+    required: true,
+  });
   const [todoDetail, setTodoDetail] = useState("");
 
-  const initalTodo = () => {
-    setTodo("");
-    setTodoDetail("");
-  };
-  const handleOnChangeTodo = debounce(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setTodo(e.target.value);
-    },
-    200
-  );
   const handleOnChangeDetail = debounce(
     (e: React.ChangeEvent<HTMLTextAreaElement>) => {
       setTodoDetail(e.target.value);
     },
     200
   );
+
   const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const todos = { title: todo, content: todoDetail };
@@ -40,11 +37,11 @@ const TodoAdd = ({ handleAddTodo }: AddType) => {
     <Container onSubmit={handleOnSubmit}>
       <InputBox>
         <Title>할 일</Title>
-        <Input onChange={handleOnChangeTodo} type="text" types="todo" />
+        {todoInput}
       </InputBox>
       <InputBox>
         <Title>상세</Title>
-        <Area onChange={handleOnChangeDetail} />
+        <Area onChange={handleOnChangeDetail} value={todoDetail} />
       </InputBox>
       <button type="submit">등록</button>
     </Container>

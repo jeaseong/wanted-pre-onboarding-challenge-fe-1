@@ -1,31 +1,31 @@
-import React, { useState } from "react";
-import Input from "components/atoms/input/Input";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import useInput from "hooks/useInput";
 import { signUp } from "api/api";
 import { authValidation } from "utils/validation";
-import { debounce } from "utils/debounce";
 import { Container, SignUpForm, SubmitBtn } from "./SignUp.styled";
 const SignUp = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const [email, emailInput] = useInput({
+    type: "text",
+    types: "auth",
+    placeholder: "email",
+    required: true,
+  });
+  const [password, passwordInput] = useInput({
+    type: "password",
+    types: "auth",
+    placeholder: "email",
+    required: true,
+  });
   const validation = authValidation({ email, password });
-  const handleOnChangeEmail = debounce(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setEmail(e.target.value);
-    },
-    300
-  );
-  const handleOnChangePassword = debounce(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setPassword(e.target.value);
-    },
-    150
-  );
   const handleOnSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (validation) {
       try {
         const authInfo = { email, password };
         await signUp(authInfo);
+        navigate("/login");
       } catch (e) {
         alert("회원가입 실패..@");
       }
@@ -34,20 +34,8 @@ const SignUp = () => {
   return (
     <Container>
       <SignUpForm onSubmit={handleOnSubmit}>
-        <Input
-          placeholder="email"
-          required
-          onChange={handleOnChangeEmail}
-          type="text"
-          types="auth"
-        />
-        <Input
-          placeholder="password"
-          required
-          onChange={handleOnChangePassword}
-          type="text"
-          types="auth"
-        />
+        {emailInput}
+        {passwordInput}
         <SubmitBtn type="submit" disabled={!validation}>
           회원가입
         </SubmitBtn>
