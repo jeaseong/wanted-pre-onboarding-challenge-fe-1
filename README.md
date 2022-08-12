@@ -90,3 +90,37 @@ return { todoInput };
 일단 코드 길이를 확 줄일 수 있었다. 그런데 심미적으로 return 문에 보통 태그를 의미하는 <>를 사용하는 jsx가 아니라 {}를 사용하기 때문에 어색함이 좀 컸다.
 
 이게 올바른 방법인지 문서를 정독하고 다시 코드를 들여다 봐야겠다.
+
+## 2차 onChage refactor
+
+내가 분리한 방법은 단순히 분리였다. 이유 근거가 없는 분리이기 때문에 오히려 직관성이 떨어져서 어떤 로직이 동작하는 지 알기 어려웠다. 그래서 컴포넌트를 what, how로 분류했다.
+
+state는 what에 해당하고, onChange 함수는 how에 해당했기 때문에 how를 예쁘게 분리해서 사용하기를 바랐다.
+
+기존의 useInput을 조금 더 가볍게 변경했다.
+
+```js
+interface Props {
+  setValue: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const useInput = ({ setValue }: Props) => {
+  const handleOnChange = debounce((e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
+  }, 200);
+
+  return handleOnChange;
+};
+```
+
+그리고 기존에 interface를 전부 types/type에 넣어서 관리 했는데, what에 관한 것은 같은 컴포넌트에 위치시켜 수정에 편의성을 더 늘려보려고 수정했다.
+
+```js
+const [email, setEmail] = useState("");
+const [password, setPassword] = useState("");
+
+const handleChangeEmail = useInput({ setValue: setEmail });
+const handleChangePassword = useInput({ setValue: setPassword });
+```
+
+이로써 해당 컴포넌트는 이메일과 패스워드를 입력하는 인풋이 있고 input value를 바꾸는 함수가 있는 컴포넌트구나 하고 명확하게 이해를 할 수 있게 되었다.

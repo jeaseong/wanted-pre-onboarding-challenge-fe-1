@@ -1,30 +1,16 @@
-import React, { useState } from "react";
-import Input from "components/atoms/input/Input";
+import React from "react";
 import { debounce } from "utils/debounce";
-import { InputTypes } from "types/type";
 
-const useInput = ({
-  type,
-  types,
-  required,
-  disabled,
-  placeholder,
-}: InputTypes): [string, JSX.Element] => {
-  const [inputValue, setInputValue] = useState("");
+interface Props {
+  setValue: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const useInput = ({ setValue }: Props) => {
   const handleOnChange = debounce((e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
+    setValue(e.target.value);
   }, 200);
-  const input = (
-    <Input
-      type={type}
-      types={types}
-      onChange={handleOnChange}
-      required={required}
-      disabled={disabled}
-      placeholder={placeholder}
-    />
-  );
-  return [inputValue, input];
+
+  return handleOnChange;
 };
 
 export default useInput;

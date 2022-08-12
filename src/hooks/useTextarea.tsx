@@ -1,18 +1,18 @@
-import React, { useState } from "react";
-import TextArea from "components/atoms/textarea/TextArea";
+import React from "react";
 import { debounce } from "utils/debounce";
-import { AreaTypes } from "types/type";
 
-const useTextarea = ({ required }: AreaTypes): [string, JSX.Element] => {
-  const [inputValue, setInputValue] = useState("");
+interface Props {
+  setValue: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const useTextarea = ({ setValue }: Props) => {
   const handleOnChange = debounce(
     (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      setInputValue(e.target.value);
+      setValue(e.target.value);
     },
     200
   );
-  const input = <TextArea onChange={handleOnChange} required={required} />;
-  return [inputValue, input];
+  return handleOnChange;
 };
 
 export default useTextarea;
