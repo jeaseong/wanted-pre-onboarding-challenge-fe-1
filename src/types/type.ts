@@ -10,6 +10,7 @@ export interface InputTypes {
 
 export interface AreaTypes {
   onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  required?: boolean;
   value?: string;
 }
 
@@ -30,7 +31,7 @@ export interface TodosType {
 }
 
 export interface DetailType {
-  id: string;
+  id: string | undefined;
   handleDeleteTodo: (id: string) => void;
   handleUpdateTodo: (id: string, todo: Todos) => void;
 }
