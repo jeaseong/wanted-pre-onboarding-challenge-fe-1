@@ -49,7 +49,7 @@ const handleOnChangePassword = debounce(
 );
 ```
 
-onChange가 발생할 때 항상 컴포넌트가 re-render가 발생해 debounce 함수를 정의해서 4개의 컴포넌트마다 해당 함수가 거의 존재했다.
+onChange가 발생할 때 항상 컴포넌트가 re-render가 발생해 debounce 함수를 정의해서 불필요한 렌더링을 최소화 했다. 그리고 이러한 함수가 4개의 컴포넌트에 모두 반복적으로 존재하기 때문에 하나의 훅으로 바꿨다.
 
 ```js
 const useInput = ({
