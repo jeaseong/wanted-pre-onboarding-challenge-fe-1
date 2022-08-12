@@ -1,8 +1,6 @@
-import React, { useState } from "react";
-import Input from "components/atoms/input/Input";
-import Area from "components/atoms/textarea/TextArea";
+import React from "react";
 import useInput from "hooks/useInput";
-import { debounce } from "utils/debounce";
+import useTextarea from "hooks/useTextarea";
 import { createTodo } from "api/api";
 import { AddType } from "types/type";
 import { Container, InputBox, Title } from "./TodoAdd.style";
@@ -14,14 +12,7 @@ const TodoAdd = ({ handleAddTodo }: AddType) => {
     placeholder: "todo",
     required: true,
   });
-  const [todoDetail, setTodoDetail] = useState("");
-
-  const handleOnChangeDetail = debounce(
-    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      setTodoDetail(e.target.value);
-    },
-    200
-  );
+  const [todoDetail, todoDetailArea] = useTextarea({ required: true });
 
   const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -41,11 +32,11 @@ const TodoAdd = ({ handleAddTodo }: AddType) => {
       </InputBox>
       <InputBox>
         <Title>상세</Title>
-        <Area onChange={handleOnChangeDetail} value={todoDetail} />
+        {todoDetailArea}
       </InputBox>
       <button type="submit">등록</button>
     </Container>
   );
 };
 
-export default TodoAdd;
+export default React.memo(TodoAdd);

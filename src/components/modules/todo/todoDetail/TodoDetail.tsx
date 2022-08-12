@@ -15,6 +15,7 @@ const TodoDetail = ({ id, handleDeleteTodo, handleUpdateTodo }: DetailType) => {
   const navigate = useNavigate();
   const [todoById, setTodoById] = useState<Todos>();
   const [isEdit, setIsEdit] = useState(false);
+
   useEffect(() => {
     if (id) {
       const fetchApi = async () => {
