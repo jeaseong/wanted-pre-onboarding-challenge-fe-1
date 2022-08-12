@@ -9,7 +9,7 @@ import { Container } from "./Todo.style";
 
 const Todo = () => {
   const params = useParams();
-  const id = params.id as string;
+  const id = params.id;
   const [todos, setTodos] = useState<Todos[]>([]);
   useEffect(() => {
     const fetchApi = async () => {
@@ -19,18 +19,18 @@ const Todo = () => {
     fetchApi();
   }, []);
 
-  const handleAddTodo = (todo: Todos) => {
+  const handleAddTodo = useCallback((todo: Todos) => {
     setTodos((cur) => {
       return [...cur, todo];
     });
-  };
+  }, []);
 
-  const handleDeleteTodo = (id: string) => {
+  const handleDeleteTodo = useCallback((id: string) => {
     setTodos((cur) => {
       return cur.filter((item) => !(item.id === id));
     });
-  };
-  const handleUpdateTodo = (id: string, todo: Todos) => {
+  }, []);
+  const handleUpdateTodo = useCallback((id: string, todo: Todos) => {
     setTodos((cur) => {
       const index = cur.findIndex((item) => item.id === id);
       const front = cur.slice(0, index);
@@ -38,7 +38,7 @@ const Todo = () => {
       const newArr = [...front, todo, ...back];
       return newArr;
     });
-  };
+  }, []);
 
   return (
     <Container>
