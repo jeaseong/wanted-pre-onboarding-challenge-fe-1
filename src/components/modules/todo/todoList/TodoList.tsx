@@ -10,7 +10,7 @@ import {
 } from "./TodoList.style";
 const TodoList = ({ todos }: TodosType) => {
   const navigate = useNavigate();
-  const handleOnClickItem = (id: string) => {
+  const handleOnClickNavigate = (id: string) => {
     navigate(`/detail/${id}`);
   };
   if (todos)
@@ -21,7 +21,7 @@ const TodoList = ({ todos }: TodosType) => {
           <TodoItems>
             {todos.map((todo) => (
               <TodoItem
-                onClick={() => handleOnClickItem(todo.id)}
+                onClick={() => handleOnClickNavigate(todo.id)}
                 key={todo.id}
               >
                 {todo.title}
