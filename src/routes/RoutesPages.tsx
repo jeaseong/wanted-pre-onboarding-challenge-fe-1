@@ -13,8 +13,8 @@ const RoutesPage = () => {
         path="/detail/:id"
         element={<PrivateRoute component={<TodoPage />} />}
       />
-      <Route path="/login" element={<PrivateRoute component={<LogIn />} />} />
-      <Route path="/sign-up" element={<LoginRoute component={<SignUp />} />} />
+      <Route path="/login" element={<LoginRoute component={<LogIn />} />} />
+      <Route path="/sign-up" element={<SignUp />} />
     </Routes>
   );
 };

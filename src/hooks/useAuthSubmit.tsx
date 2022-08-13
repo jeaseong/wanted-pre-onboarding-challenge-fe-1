@@ -16,11 +16,11 @@ const useAuthSubmit = ({ email, password, api, locationTo }: Props) => {
   const navigate = useNavigate();
   const handleOnSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const user = { email, password };
-    const { token } = await api(user);
-    localStorage.setItem("userToken", token);
-    navigate(locationTo);
     try {
+      const user = { email, password };
+      const { token } = await api(user);
+      localStorage.setItem("userToken", token);
+      navigate(locationTo);
     } catch (error) {
       if (error instanceof AxiosError) alert(error.response?.data.details);
     }
