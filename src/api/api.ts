@@ -9,7 +9,8 @@ export const logIn = async (authInfo: authTypes) => {
 
 export const signUp = async (authInfo: authTypes) => {
   const apiURL = "users/create";
-  await Axios.post(apiURL, authInfo);
+  const { data } = await Axios.post(apiURL, authInfo);
+  return data;
 };
 
 export const getTodos = async () => {

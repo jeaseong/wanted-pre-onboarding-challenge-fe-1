@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Input from "components/atoms/input/Input";
 import useInput from "hooks/useInput";
+import useAuthSubmit from "hooks/useAuthSubmit";
 import { logIn } from "api/api";
 import { authValidation } from "utils/validation";
 import { Container, LoginForm, SubmitBtn } from "./Login.style";
-import { AxiosError } from "axios";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -17,18 +17,13 @@ const Login = () => {
 
   const validation = authValidation({ email, password });
 
-  const handleOnSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleOnSubmit = useAuthSubmit({
+    email,
+    password,
+    api: logIn,
+    locationTo: "/",
+  });
 
-    const authInfo = { email, password };
-    try {
-      const { token } = await logIn(authInfo);
-      localStorage.setItem("userToken", token);
-      navigate("/");
-    } catch (error) {
-      if (error instanceof AxiosError) alert(error.response?.data.details);
-    }
-  };
   return (
     <Container>
       <LoginForm onSubmit={handleOnSubmit}>
