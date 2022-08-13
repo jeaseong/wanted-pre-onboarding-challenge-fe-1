@@ -5,6 +5,7 @@ import useInput from "hooks/useInput";
 import { logIn } from "api/api";
 import { authValidation } from "utils/validation";
 import { Container, LoginForm, SubmitBtn } from "./Login.style";
+import { AxiosError } from "axios";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -21,11 +22,11 @@ const Login = () => {
 
     const authInfo = { email, password };
     try {
-      const { message, token } = await logIn(authInfo);
+      const { token } = await logIn(authInfo);
       localStorage.setItem("userToken", token);
       navigate("/");
     } catch (error) {
-      alert(error);
+      if (error instanceof AxiosError) alert(error.response?.data.details);
     }
   };
   return (

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { AxiosError } from "axios";
 import Input from "components/atoms/input/Input";
 import TextArea from "components/atoms/textarea/TextArea";
 import useInput from "hooks/useInput";
@@ -21,7 +22,9 @@ const TodoAdd = ({ handleAddTodo }: AddType) => {
       const { data } = await createTodo(todos);
       handleAddTodo(data);
     } catch (e) {
-      alert("다시 써야겠는걸요?");
+      if (e instanceof AxiosError) {
+        alert(e.response?.data.details);
+      }
     }
   };
   return (

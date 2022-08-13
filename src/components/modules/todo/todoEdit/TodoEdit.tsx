@@ -4,6 +4,7 @@ import TextArea from "components/atoms/textarea/TextArea";
 import { updateTodo } from "api/api";
 import { EditType } from "types/type";
 import { Container } from "./TodoEdit.style";
+import { AxiosError } from "axios";
 
 const TodoEdit = ({ todo, handleUpdateTodo, handleOnEditForm }: EditType) => {
   const [title, setTitle] = useState(todo.title);
@@ -25,7 +26,9 @@ const TodoEdit = ({ todo, handleUpdateTodo, handleOnEditForm }: EditType) => {
       handleUpdateTodo(todo.id, data);
       handleOnEditForm();
     } catch (e) {
-      alert("다시 써야겠는걸요?");
+      if (e instanceof AxiosError) {
+        alert(e.response?.data.details);
+      }
     }
   };
   return (

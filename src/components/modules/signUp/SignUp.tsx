@@ -5,6 +5,7 @@ import useInput from "hooks/useInput";
 import { signUp } from "api/api";
 import { authValidation } from "utils/validation";
 import { Container, SignUpForm, SubmitBtn } from "./SignUp.styled";
+import { AxiosError } from "axios";
 const SignUp = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -17,13 +18,13 @@ const SignUp = () => {
 
   const handleOnSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (validation) {
-      try {
-        const authInfo = { email, password };
-        await signUp(authInfo);
-        navigate("/login");
-      } catch (e) {
-        alert("회원가입 실패..@");
+    try {
+      const authInfo = { email, password };
+      await signUp(authInfo);
+      navigate("/login");
+    } catch (e) {
+      if (e instanceof AxiosError) {
+        alert(e.response?.data.details);
       }
     }
   };
