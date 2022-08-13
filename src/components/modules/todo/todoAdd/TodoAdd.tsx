@@ -3,7 +3,6 @@ import { AxiosError } from "axios";
 import Input from "components/atoms/input/Input";
 import TextArea from "components/atoms/textarea/TextArea";
 import useInput from "hooks/useInput";
-import useTextarea from "hooks/useTextarea";
 import { createTodo } from "api/api";
 import { AddType } from "types/type";
 import { Container, InputBox, Title } from "./TodoAdd.style";
@@ -13,7 +12,7 @@ const TodoAdd = ({ handleAddTodo }: AddType) => {
   const [content, setContent] = useState("");
 
   const handleChangeTitle = useInput({ setValue: setTitle });
-  const handleChangeContent = useTextarea({ setValue: setContent });
+  const handleChangeContent = useInput({ setValue: setContent });
 
   const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

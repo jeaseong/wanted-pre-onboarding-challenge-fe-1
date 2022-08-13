@@ -6,9 +6,16 @@ interface Props {
 }
 
 const useInput = ({ setValue }: Props) => {
-  const handleOnChange = debounce((e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
-  }, 200);
+  const handleOnChange = debounce(
+    (
+      e:
+        | React.ChangeEvent<HTMLInputElement>
+        | React.ChangeEvent<HTMLTextAreaElement>
+    ) => {
+      setValue(e.target.value);
+    },
+    200
+  );
 
   return handleOnChange;
 };
