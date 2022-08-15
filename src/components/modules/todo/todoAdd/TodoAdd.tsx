@@ -1,30 +1,29 @@
 import React, { useState } from "react";
-import { AxiosError } from "axios";
+import styled from "styled-components";
 import Input from "components/atoms/input/Input";
 import TextArea from "components/atoms/textarea/TextArea";
+import usePostTodo from "hooks/usePostTodo";
 import useInput from "hooks/useInput";
-import { createTodo } from "api/api";
-import { AddType } from "types/type";
-import { Container, InputBox, Title } from "./TodoAdd.style";
 
-const TodoAdd = ({ handleAddTodo }: AddType) => {
+const TodoAdd = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+
+  const addTodoMutation = usePostTodo();
 
   const handleChangeTitle = useInput({ setValue: setTitle });
   const handleChangeContent = useInput({ setValue: setContent });
 
+  const init = () => {
+    setTitle("");
+    setContent("");
+  };
+
   const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const todos = { title, content };
-    try {
-      const { data } = await createTodo(todos);
-      handleAddTodo(data);
-    } catch (e) {
-      if (e instanceof AxiosError) {
-        alert(e.response?.data.details);
-      }
-    }
+    const todo = { title, content };
+    addTodoMutation.mutate(todo);
+    init();
   };
   return (
     <Container onSubmit={handleOnSubmit}>
@@ -42,3 +41,15 @@ const TodoAdd = ({ handleAddTodo }: AddType) => {
 };
 
 export default React.memo(TodoAdd);
+
+const Container = styled.form`
+  display: flex;
+  flex-direction: column;
+`;
+
+const InputBox = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Title = styled.h3``;
