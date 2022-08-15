@@ -1,14 +1,12 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 import Input from "components/atoms/input/Input";
 import useInput from "hooks/useInput";
 import useAuthSubmit from "hooks/useAuthSubmit";
 import { logIn } from "api/api";
 import { authValidation } from "utils/validation";
-import { Container, LoginForm, SubmitBtn } from "./Login.style";
 
 const Login = () => {
-  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -48,3 +46,9 @@ const Login = () => {
 };
 
 export default Login;
+
+const Container = styled.section``;
+
+const LoginForm = styled.form``;
+
+const SubmitBtn = styled.button``;

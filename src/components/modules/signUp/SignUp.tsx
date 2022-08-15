@@ -1,10 +1,10 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 import Input from "components/atoms/input/Input";
 import useInput from "hooks/useInput";
 import useAuthSubmit from "hooks/useAuthSubmit";
 import { signUp } from "api/api";
 import { authValidation } from "utils/validation";
-import { Container, SignUpForm, SubmitBtn } from "./SignUp.styled";
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -45,3 +45,9 @@ const SignUp = () => {
 };
 
 export default SignUp;
+
+const Container = styled.section``;
+
+const SignUpForm = styled.form``;
+
+const SubmitBtn = styled.button``;
