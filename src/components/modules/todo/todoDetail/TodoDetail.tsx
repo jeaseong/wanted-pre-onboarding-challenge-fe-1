@@ -1,67 +1,42 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import styled from "styled-components";
+import { useNavigate, useParams } from "react-router-dom";
 import TodoEdit from "components/modules/todo/todoEdit/TodoEdit";
-import { getTodoById, deleteTodo } from "api/api";
-import { DetailType, Todos } from "types/type";
-import { Container, TodoHead, TodoContent } from "./TodoDetail.style";
-const initalData = {
-  title: "",
-  content: "",
-  id: "",
-  createdAt: "",
-  updatedAt: "",
-};
-const TodoDetail = ({ id, handleDeleteTodo, handleUpdateTodo }: DetailType) => {
+import useGetTodo from "hooks/useGetTodo";
+import useDelTodo from "hooks/useDelTodo";
+
+const TodoDetail = () => {
+  const params = useParams();
   const navigate = useNavigate();
-  const [todoById, setTodoById] = useState<Todos>();
+  const id = params.id;
   const [isEdit, setIsEdit] = useState(false);
 
-  useEffect(() => {
-    if (id) {
-      const fetchApi = async () => {
-        const { data } = await getTodoById(id);
-        setTodoById(data);
-      };
-      fetchApi();
-    } else {
-      setTodoById(initalData);
-    }
-  }, [id, isEdit]);
+  const { data } = useGetTodo(id);
+  const delTodoMutation = useDelTodo(id);
+
+  const handleDelTodo = () => {
+    delTodoMutation.mutate(id);
+    navigate("/");
+  };
 
   const handleOnEditForm = () => {
     setIsEdit((cur) => !cur);
   };
-
-  const handleOnDelete = async (id: string) => {
-    if (id) {
-      await deleteTodo(id);
-      handleDeleteTodo(id);
-      navigate("/");
-    }
-  };
-  if (todoById)
+  if (data)
     return (
       <Container>
         {!isEdit ? (
           <>
-            <TodoHead>{todoById.title}</TodoHead>
-            <TodoContent>{todoById.content}</TodoContent>
+            <TodoHead>{data.title}</TodoHead>
+            <TodoContent>{data.content}</TodoContent>
           </>
         ) : (
-          <TodoEdit
-            todo={todoById}
-            handleUpdateTodo={handleUpdateTodo}
-            handleOnEditForm={handleOnEditForm}
-          />
+          <TodoEdit todo={data} handleOnEditForm={handleOnEditForm}></TodoEdit>
         )}
 
-        {id && (
-          <>
-            {!isEdit && <button onClick={handleOnEditForm}>수정</button>}
+        {!isEdit && <button onClick={handleOnEditForm}>수정</button>}
 
-            <button onClick={() => handleOnDelete(todoById.id)}>삭제</button>
-          </>
-        )}
+        <button onClick={handleDelTodo}>삭제</button>
       </Container>
     );
   else
@@ -74,3 +49,12 @@ const TodoDetail = ({ id, handleDeleteTodo, handleUpdateTodo }: DetailType) => {
 };
 
 export default React.memo(TodoDetail);
+
+const Container = styled.article`
+  width: 100%;
+  border: 1px solid black;
+`;
+
+const TodoHead = styled.h2``;
+
+const TodoContent = styled.p``;
