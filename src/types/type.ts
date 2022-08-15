@@ -30,18 +30,4 @@ export interface TodosType {
   todos: Todos[];
 }
 
-export interface DetailType {
-  id: string | undefined;
-  handleDeleteTodo: (id: string) => void;
-  handleUpdateTodo: (id: string, todo: Todos) => void;
-}
-
-export interface AddType {
-  handleAddTodo: (todo: Todos) => void;
-}
-
-export interface EditType {
-  todo: Todos;
-  handleUpdateTodo: (id: string, todo: Todos) => void;
-  handleOnEditForm: () => void;
-}
+export type ParamsId = string | undefined;
