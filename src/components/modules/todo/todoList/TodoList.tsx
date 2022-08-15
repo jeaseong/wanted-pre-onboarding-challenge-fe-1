@@ -1,13 +1,8 @@
 import React from "react";
+import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { TodosType } from "types/type";
-import {
-  Container,
-  TodoHead,
-  TodoBody,
-  TodoItems,
-  TodoItem,
-} from "./TodoList.style";
+
 const TodoList = ({ todos }: TodosType) => {
   const navigate = useNavigate();
   const handleOnClickNavigate = (id: string) => {
@@ -35,3 +30,16 @@ const TodoList = ({ todos }: TodosType) => {
 };
 
 export default React.memo(TodoList);
+
+const Container = styled.article`
+  width: 100%;
+  border: 1px solid black;
+`;
+
+const TodoHead = styled.h2``;
+
+const TodoBody = styled.section``;
+
+const TodoItems = styled.ul``;
+
+const TodoItem = styled.li``;

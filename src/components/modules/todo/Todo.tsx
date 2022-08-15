@@ -1,56 +1,36 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { useParams } from "react-router-dom";
-import { getTodos } from "api/api";
-import TodoList from "components/modules/todo/todoList/TodoList";
-import TodoDetail from "components/modules/todo/todoDetail/TodoDetail";
+import React from "react";
+import styled from "styled-components";
 import TodoAdd from "components/modules/todo/todoAdd/TodoAdd";
-import { Todos } from "types/type";
-import { Container } from "./Todo.style";
+import useGetTodos from "hooks/useGetTodos";
+
+const TodoList = React.lazy(
+  () => import("components/modules/todo/todoList/TodoList")
+);
+const TodoDetail = React.lazy(
+  () => import("components/modules/todo/todoDetail/TodoDetail")
+);
 
 const Todo = () => {
-  const params = useParams();
-  const id = params.id;
-  const [todos, setTodos] = useState<Todos[]>([]);
-  useEffect(() => {
-    const fetchApi = async () => {
-      const { data } = await getTodos();
-      setTodos(data);
-    };
-    fetchApi();
-  }, []);
-
-  const handleAddTodo = useCallback((todo: Todos) => {
-    setTodos((cur) => {
-      return [...cur, todo];
-    });
-  }, []);
-
-  const handleDeleteTodo = useCallback((id: string) => {
-    setTodos((cur) => {
-      return cur.filter((item) => !(item.id === id));
-    });
-  }, []);
-  const handleUpdateTodo = useCallback((id: string, todo: Todos) => {
-    setTodos((cur) => {
-      const index = cur.findIndex((item) => item.id === id);
-      const front = cur.slice(0, index);
-      const back = cur.slice(index + 1);
-      const newArr = [...front, todo, ...back];
-      return newArr;
-    });
-  }, []);
-
+  const { data } = useGetTodos();
   return (
-    <Container>
-      <TodoAdd handleAddTodo={handleAddTodo} />
-      <TodoList todos={todos} />
-      <TodoDetail
-        handleDeleteTodo={handleDeleteTodo}
-        handleUpdateTodo={handleUpdateTodo}
-        id={id}
-      />
-    </Container>
+    <React.Suspense fallback={<>오우 마이갓@</>}>
+      <Container>
+        <TodoAdd />
+        <TodoList todos={data} />
+        <TodoDetail />
+      </Container>
+    </React.Suspense>
   );
 };
 
 export default Todo;
+
+const Container = styled.section`
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  min-height: 300px;
+  display: flex;
+  gap: 20px;
+`;
