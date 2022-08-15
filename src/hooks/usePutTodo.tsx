@@ -1,0 +1,25 @@
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { AxiosError } from "axios";
+import { updateTodo } from "api/api";
+import { todoType } from "types/api";
+
+interface Params {
+  id: string;
+  todo: todoType;
+}
+const usePutTodo = (id: string) => {
+  const queryClient = useQueryClient();
+  return useMutation(({ id, todo }: Params) => updateTodo(id, todo), {
+    onSuccess: () => {
+      queryClient.invalidateQueries(["todo", id]);
+      queryClient.invalidateQueries(["todos"]);
+    },
+    onError: (e) => {
+      if (e instanceof AxiosError) {
+        alert(e.response?.data.details);
+      }
+    },
+  });
+};
+
+export default usePutTodo;

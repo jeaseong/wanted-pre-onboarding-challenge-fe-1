@@ -1,36 +1,39 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 import Input from "components/atoms/input/Input";
 import TextArea from "components/atoms/textarea/TextArea";
-import { updateTodo } from "api/api";
-import { EditType } from "types/type";
-import { Container } from "./TodoEdit.style";
-import { AxiosError } from "axios";
+import usePutTodo from "hooks/usePutTodo";
+import { Todos } from "types/type";
 
-const TodoEdit = ({ todo, handleUpdateTodo, handleOnEditForm }: EditType) => {
+interface Props {
+  todo: Todos;
+  handleOnEditForm: () => void;
+}
+
+const TodoEdit = ({ todo, handleOnEditForm }: Props) => {
   const [title, setTitle] = useState(todo.title);
   const [content, setContent] = useState(todo.content);
+  const updateTodoMutation = usePutTodo(todo.id);
 
   const handleOnChangeTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
-
   const handleOnChangeDetail = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
   };
-
   const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      const newTodo = { title, content };
-      const { data } = await updateTodo(todo.id, newTodo);
-      handleUpdateTodo(todo.id, data);
-      handleOnEditForm();
-    } catch (e) {
-      if (e instanceof AxiosError) {
-        alert(e.response?.data.details);
-      }
-    }
+    const props = {
+      id: todo.id,
+      todo: {
+        title: title,
+        content: content,
+      },
+    };
+    updateTodoMutation.mutate(props);
+    handleOnEditForm();
   };
+
   return (
     <Container onSubmit={handleOnSubmit}>
       <Input
@@ -46,3 +49,5 @@ const TodoEdit = ({ todo, handleUpdateTodo, handleOnEditForm }: EditType) => {
 };
 
 export default TodoEdit;
+
+const Container = styled.form``;
