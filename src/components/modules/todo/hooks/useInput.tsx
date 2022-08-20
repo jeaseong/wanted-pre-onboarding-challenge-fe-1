@@ -1,5 +1,5 @@
 import React from "react";
-import { debounce } from "utils/debounce";
+import { debounce } from "../utils/debounce";
 
 interface Props {
   setValue: React.Dispatch<React.SetStateAction<string>>;

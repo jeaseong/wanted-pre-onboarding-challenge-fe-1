@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { deleteTodo } from "components/modules/todo/api/api";
-import { ParamsId } from "types/type";
+import { ParamsId } from "../../types";
 
 const useDelTodo = (id: ParamsId) => {
   const queryClient = useQueryClient();

@@ -1,6 +1,6 @@
 import { Axios } from "api/customAxios";
-import { ParamsId } from "types/type";
-import { todoType } from "types/api";
+import { ParamsId } from "../types";
+import { todoType } from "components/modules/todo/types";
 
 export const getTodos = async () => {
   const apiURL = "todos";

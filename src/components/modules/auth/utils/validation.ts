@@ -1,4 +1,4 @@
-import { authTypes } from "types/api";
+import { authTypes } from "../types";
 const passwordValidation = (password: string) => {
   return password.length >= 8;
 };

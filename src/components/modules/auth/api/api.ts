@@ -1,5 +1,5 @@
 import { Axios } from "api/customAxios";
-import { authTypes } from "types/api";
+import { authTypes } from "../types";
 
 export const logIn = async (authInfo: authTypes) => {
   const apiURL = "users/login";

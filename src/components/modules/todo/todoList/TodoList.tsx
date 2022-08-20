@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { TodosType } from "types/type";
+import { TodosType } from "../types";
 
 const TodoList = ({ todos }: TodosType) => {
   const navigate = useNavigate();

@@ -1,5 +1,5 @@
 import React from "react";
-import { InputTypes } from "types/type";
+import { InputTypes } from "./types/index";
 import { InputBox } from "./Input.style";
 
 const Input = ({

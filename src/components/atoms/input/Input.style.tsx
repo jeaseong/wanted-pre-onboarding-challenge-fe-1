@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { InputTypes } from "types/type";
+import { InputTypes } from "./types";
 
 export const InputBox = styled.input<InputTypes>`
   padding: 10px;

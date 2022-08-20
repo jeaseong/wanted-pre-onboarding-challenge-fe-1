@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { createTodo } from "components/modules/todo/api/api";
-import { todoType } from "types/api";
+import { todoType } from "components/modules/todo/types";
 
 const usePostTodo = () => {
   const queryClient = useQueryClient();
