@@ -5,4 +5,4 @@ const TextArea = ({ onChange, value, required }: AreaTypes) => {
   return <Area onChange={onChange} value={value} required={required} />;
 };
 
-export default TextArea;
+export default React.memo(TextArea);

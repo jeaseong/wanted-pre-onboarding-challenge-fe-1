@@ -23,7 +23,7 @@ const Todo = () => {
   );
 };
 
-export default Todo;
+export default React.memo(Todo);
 
 const Container = styled.section`
   width: 100%;

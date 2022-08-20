@@ -44,7 +44,7 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default React.memo(SignUp);
 
 const Container = styled.section``;
 
