@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
 import TodoEdit from "components/modules/todo/todoEdit/TodoEdit";
-import useGetTodo from "hooks/useGetTodo";
-import useDelTodo from "hooks/useDelTodo";
+import useGetTodo from "components/modules/todo/hooks/useGetTodo";
+import useDelTodo from "components/modules/todo/todoDetail/hooks/useDelTodo";
 
 const TodoDetail = () => {
   const params = useParams();

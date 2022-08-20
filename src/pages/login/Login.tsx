@@ -1,5 +1,5 @@
 import React from "react";
-import LogIn from "components/modules/login/Login";
+import LogIn from "components/modules/auth/login/Login";
 import { Container } from "./Login.style";
 const Login = () => {
   return (

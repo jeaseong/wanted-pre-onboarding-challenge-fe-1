@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Input from "components/atoms/input/Input";
 import TextArea from "components/atoms/textarea/TextArea";
-import usePutTodo from "hooks/usePutTodo";
+import usePutTodo from "components/modules/todo/todoEdit/hooks/usePutTodo";
 import { Todos } from "types/type";
 
 interface Props {

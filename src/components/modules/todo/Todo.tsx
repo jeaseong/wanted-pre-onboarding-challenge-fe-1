@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import TodoAdd from "components/modules/todo/todoAdd/TodoAdd";
-import useGetTodos from "hooks/useGetTodos";
+import useGetTodos from "components/modules/todo/todoDetail/hooks/useGetTodos";
 
 const TodoList = React.lazy(
   () => import("components/modules/todo/todoList/TodoList")

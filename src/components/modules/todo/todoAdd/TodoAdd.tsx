@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Input from "components/atoms/input/Input";
 import TextArea from "components/atoms/textarea/TextArea";
-import usePostTodo from "hooks/usePostTodo";
-import useInput from "hooks/useInput";
+import usePostTodo from "components/modules/todo/todoAdd/hooks/usePostTodo";
+import useInput from "components/modules/todo/hooks/useInput";
 
 const TodoAdd = () => {
   const [title, setTitle] = useState("");
