@@ -1,5 +1,4 @@
 import axios, { AxiosInstance } from "axios";
-import { access } from "fs";
 
 const serverURL = `${process.env.REACT_APP_API_SERVER}`;
 

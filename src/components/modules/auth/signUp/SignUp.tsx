@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Input from "components/atoms/input/Input";
 import useInput from "components/modules/todo/hooks/useInput";
 import useAuthSubmit from "components/modules/auth/hooks/useAuthSubmit";
-import { signUp } from "api/api";
+import { signUp } from "../api/api";
 import { authValidation } from "utils/validation";
 const SignUp = () => {
   const [email, setEmail] = useState("");

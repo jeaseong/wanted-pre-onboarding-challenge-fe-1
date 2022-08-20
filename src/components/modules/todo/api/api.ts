@@ -1,18 +1,6 @@
 import { Axios } from "api/customAxios";
 import { ParamsId } from "types/type";
-import { authTypes, todoType } from "types/api";
-
-export const logIn = async (authInfo: authTypes) => {
-  const apiURL = "users/login";
-  const { data } = await Axios.post(apiURL, authInfo);
-  return data;
-};
-
-export const signUp = async (authInfo: authTypes) => {
-  const apiURL = "users/create";
-  const { data } = await Axios.post(apiURL, authInfo);
-  return data;
-};
+import { todoType } from "types/api";
 
 export const getTodos = async () => {
   const apiURL = "todos";

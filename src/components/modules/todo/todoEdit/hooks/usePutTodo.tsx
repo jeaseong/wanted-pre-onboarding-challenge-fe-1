@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { updateTodo } from "api/api";
+import { updateTodo } from "components/modules/todo/api/api";
 import { todoType } from "types/api";
 
 interface Params {
